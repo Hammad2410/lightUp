@@ -18,7 +18,7 @@ chatRoute.post('/createEssay', async (req, res) => {
 
 
         if (result) {
-            console.log("Working ", result?.data)
+            // console.log("Working ", result?.data)
 
             res.send({
                 success: true,
