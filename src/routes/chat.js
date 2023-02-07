@@ -1,17 +1,18 @@
 const express = require('express')
 const openai = require('.././configs/openai')
+const connection = require('../configs/db')
 
 const chatRoute = express.Router()
 
-chatRoute.post('/createEssay', async (req, res) => {
+chatRoute.post('/createQuery', async (req, res) => {
     try {
-        let { topic, words } = req.body;
+        let { topic, words, option, level } = req.body;
 
         console.log(req.body)
 
         let result = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: "Write a essay on " + topic,
+            prompt: `Write ${option} on ${topic} of ${words} words for ${level} level Response`,
             max_tokens: +words,
             temperature: 0,
         });
@@ -41,53 +42,15 @@ chatRoute.post('/createEssay', async (req, res) => {
 
 })
 
-chatRoute.post('/createStory', async (req, res) => {
-    try {
-        let { topic, words } = req.body;
-
-        // console.log(req.body)
-
-        let result = await openai.createCompletion({
-            model: "text-davinci-003",
-            prompt: "Write a story on " + topic,
-            max_tokens: +words,
-            temperature: 0,
-        });
-
-
-        if (result) {
-            console.log("Working ", result?.data)
-
-            res.send({
-                success: true,
-                message: 'Response fetched',
-                result: result?.data?.choices[0]?.text
-            })
-        }
-
-
-
-    }
-    catch (error) {
-
-        console.warn(error)
-        res.send({
-            success: false,
-            message: error.message
-        })
-    }
-
-})
-
 chatRoute.post('/createTest', async (req, res) => {
     try {
-        let { topic, words } = req.body;
+        let { topic, level, mcqs, short, long } = req.body;
 
         // console.log(req.body)
 
         let result = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: "Write a short questions and answers on " + topic,
+            prompt: `Generate ${mcqs} MCQs, ${short} short questions and ${long} long questions from ${topic} for ${level} level`,
             max_tokens: +words,
             temperature: 0,
         });
@@ -103,8 +66,6 @@ chatRoute.post('/createTest', async (req, res) => {
             })
         }
 
-
-
     }
     catch (error) {
 
@@ -116,6 +77,44 @@ chatRoute.post('/createTest', async (req, res) => {
     }
 
 })
+
+// chatRoute.post('/createTest', async (req, res) => {
+//     try {
+//         let { topic, words } = req.body;
+
+//         // console.log(req.body)
+
+//         let result = await openai.createCompletion({
+//             model: "text-davinci-003",
+//             prompt: "Write a short questions and answers on " + topic,
+//             max_tokens: +words,
+//             temperature: 0,
+//         });
+
+
+//         if (result) {
+//             console.log("Working ", result?.data)
+
+//             res.send({
+//                 success: true,
+//                 message: 'Response fetched',
+//                 result: result?.data?.choices[0]?.text
+//             })
+//         }
+
+
+
+//     }
+//     catch (error) {
+
+//         console.warn(error)
+//         res.send({
+//             success: false,
+//             message: error.message
+//         })
+//     }
+
+// })
 
 
 
