@@ -227,6 +227,42 @@ chatRoute.post('/solve', async (req, res) => {
 
 })
 
+chatRoute.post('/translate', async (req, res) => {
+    try {
+        let { text, language } = req.body;
+
+        // console.log(req.body)
+
+        let result = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: `translate the following "${text}" into ${language}`,
+            max_tokens: 500,
+            temperature: 0,
+        });
+
+
+        if (result) {
+            console.log("Working ", result?.data)
+
+            res.send({
+                success: true,
+                message: 'Response fetched',
+                result: result?.data?.choices[0]?.text
+            })
+        }
+
+    }
+    catch (error) {
+
+        console.warn(error)
+        res.send({
+            success: false,
+            message: error.message
+        })
+    }
+
+})
+
 
 
 // chatRoute.post('/createTest', async (req, res) => {
