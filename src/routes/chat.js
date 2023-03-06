@@ -54,7 +54,7 @@ chatRoute.post('/createTest', async (req, res) => {
         let result = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: `Generate ${mcqs} MCQs, ${short} short questions and ${long} long questions from ${topic} for ${level} level`,
-            max_tokens: +words,
+            max_tokens: 400,
             temperature: 0,
         });
 
@@ -157,13 +157,13 @@ chatRoute.post('/summerize', upload.single('file'), async (req, res) => {
     try {
         let { text, words, url } = req.body;
 
-        let content = await extractor.extract(req.file.path)
+        // let content = await extractor.extract(req.file.path)
 
         // console.log(content.getBody())
 
         let result = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: `Summarize ${content.getBody()} in ${words} words`,
+            prompt: `Summarize ${text} in ${words} words`,
             max_tokens: +words,
             temperature: 0,
         });
