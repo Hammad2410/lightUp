@@ -4,8 +4,39 @@ const connection = require('../configs/db')
 const WordExtractor = require("word-extractor");
 const upload = require('../configs/upload');
 const extractor = new WordExtractor();
+const verifyToken = require('../configs/authorizor');
 
 const chatRoute = express.Router()
+
+chatRoute.get('/getWords', verifyToken, async (req, res) => {
+    try {
+
+
+        const result = await connection.query("SELECT words FROM users WHERE id = $1", [req.user.user_id])
+
+        if (result) {
+            // console.log("Working ", result?.data)
+
+            res.send({
+                success: true,
+                message: 'Response fetched',
+                words: result.rows[0].words
+            })
+        }
+
+
+
+    }
+    catch (error) {
+
+        console.warn(error)
+        res.send({
+            success: false,
+            message: error.message
+        })
+    }
+})
+
 
 chatRoute.post('/createQuery', async (req, res) => {
     try {
