@@ -35,6 +35,7 @@ paymentRoute.post('/payment-sheet', async (req, res) => {
         paymentIntent: paymentIntent.client_secret,
         ephemeralKey: ephemeralKey.secret,
         customer: customer.id,
+
         publishableKey: 'pk_test_51MxcVyJ6mDybK89H8EWDB1sDt68whHSXSPe69Le5q0NDme5Xw5yxpNDjckx2Oyyr4v5PPRNt6cyaSxkczB0Fo1Wg00wDRhOtjH'
 
     });
