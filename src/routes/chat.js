@@ -45,7 +45,7 @@ chatRoute.post('/createQuery', async (req, res) => {
         console.log(req.body)
 
         let result = await openai.createCompletion({
-            model: "text-davinci-003",
+            model: "davinci",
             prompt: `Write ${option} on ${topic} of ${words} words for ${level} level Response`,
             max_tokens: +words,
             temperature: 0,
@@ -83,7 +83,7 @@ chatRoute.post('/createTest', async (req, res) => {
         // console.log(req.body)
 
         let result = await openai.createCompletion({
-            model: "text-davinci-003",
+            model: "davinci",
             prompt: `Generate ${mcqs} MCQs, ${short} short questions and ${long} long questions from ${topic} for ${level} level`,
             max_tokens: 400,
             temperature: 0,
@@ -119,7 +119,7 @@ chatRoute.post('/answerQuestion', async (req, res) => {
         // console.log(req.body)
 
         let result = await openai.createCompletion({
-            model: "text-davinci-003",
+            model: "davinci",
             prompt: `${question}`,
             max_tokens: 50,
             temperature: 0,
@@ -155,7 +155,7 @@ chatRoute.post('/createQuestions', async (req, res) => {
         // console.log(req.body)
 
         let result = await openai.createCompletion({
-            model: "text-davinci-003",
+            model: "davinci",
             prompt: `Create ${questions} questions from ${topic}`,
             max_tokens: 50,
             temperature: 0,
@@ -193,7 +193,7 @@ chatRoute.post('/summerize', upload.single('file'), async (req, res) => {
         // console.log(content.getBody())
 
         let result = await openai.createCompletion({
-            model: "text-davinci-003",
+            model: "davinci",
             prompt: `Summarize ${text} in ${words} words`,
             max_tokens: +words,
             temperature: 0,
@@ -229,7 +229,7 @@ chatRoute.post('/solve', async (req, res) => {
         // console.log(req.body)
 
         let result = await openai.createCompletion({
-            model: "text-davinci-003",
+            model: "davinci",
             prompt: `Solve ${question} step by step`,
             max_tokens: 250,
             temperature: 0,
@@ -265,7 +265,7 @@ chatRoute.post('/translate', async (req, res) => {
         // console.log(req.body)
 
         let result = await openai.createCompletion({
-            model: "text-davinci-003",
+            model: "davinci",
             prompt: `translate the following "${text}" into ${language}`,
             max_tokens: 500,
             temperature: 0,
@@ -303,7 +303,7 @@ chatRoute.post('/translate', async (req, res) => {
 //         // console.log(req.body)
 
 //         let result = await openai.createCompletion({
-//             model: "text-davinci-003",
+//             model: "davinci",
 //             prompt: "Write a short questions and answers on " + topic,
 //             max_tokens: +words,
 //             temperature: 0,
